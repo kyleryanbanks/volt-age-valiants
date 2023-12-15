@@ -1,0 +1,53 @@
+{
+  "name": "volt-age-circuit",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "apps/volt-age-circuit/src",
+  "projectType": "application",
+  "targets": {
+    "build": {
+      "executor": "@nx/webpack:webpack",
+      "outputs": ["{options.outputPath}"],
+      "defaultConfiguration": "production",
+      "options": {
+        "target": "node",
+        "compiler": "tsc",
+        "outputPath": "dist/apps/volt-age-circuit",
+        "main": "apps/volt-age-circuit/src/main.ts",
+        "tsConfig": "apps/volt-age-circuit/tsconfig.app.json",
+        "assets": ["apps/volt-age-circuit/src/assets"],
+        "webpackConfig": "apps/volt-age-circuit/webpack.config.js"
+      },
+      "configurations": {
+        "development": {},
+        "production": {}
+      }
+    },
+    "serve": {
+      "executor": "@nx/js:node",
+      "defaultConfiguration": "development",
+      "options": {
+        "buildTarget": "volt-age-circuit:build"
+      },
+      "configurations": {
+        "development": {
+          "buildTarget": "volt-age-circuit:build:development"
+        },
+        "production": {
+          "buildTarget": "volt-age-circuit:build:production"
+        }
+      }
+    },
+    "lint": {
+      "executor": "@nx/eslint:lint",
+      "outputs": ["{options.outputFile}"]
+    },
+    "test": {
+      "executor": "@nx/jest:jest",
+      "outputs": ["{workspaceRoot}/coverage/{projectRoot}"],
+      "options": {
+        "jestConfig": "apps/volt-age-circuit/jest.config.ts"
+      }
+    }
+  },
+  "tags": []
+}
