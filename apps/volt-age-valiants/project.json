@@ -1,0 +1,79 @@
+{
+  "name": "volt-age-valiants",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "projectType": "application",
+  "prefix": "volt-age-valiants",
+  "sourceRoot": "apps/volt-age-valiants/src",
+  "tags": [],
+  "targets": {
+    "build": {
+      "executor": "@angular-devkit/build-angular:application",
+      "outputs": ["{options.outputPath}"],
+      "options": {
+        "outputPath": "dist/apps/volt-age-valiants",
+        "index": "apps/volt-age-valiants/src/index.html",
+        "browser": "apps/volt-age-valiants/src/main.ts",
+        "polyfills": ["zone.js"],
+        "tsConfig": "apps/volt-age-valiants/tsconfig.app.json",
+        "assets": [
+          "apps/volt-age-valiants/src/favicon.ico",
+          "apps/volt-age-valiants/src/assets"
+        ],
+        "styles": ["apps/volt-age-valiants/src/styles.css"],
+        "scripts": []
+      },
+      "configurations": {
+        "production": {
+          "budgets": [
+            {
+              "type": "initial",
+              "maximumWarning": "500kb",
+              "maximumError": "1mb"
+            },
+            {
+              "type": "anyComponentStyle",
+              "maximumWarning": "2kb",
+              "maximumError": "4kb"
+            }
+          ],
+          "outputHashing": "all"
+        },
+        "development": {
+          "optimization": false,
+          "extractLicenses": false,
+          "sourceMap": true
+        }
+      },
+      "defaultConfiguration": "production"
+    },
+    "serve": {
+      "executor": "@angular-devkit/build-angular:dev-server",
+      "configurations": {
+        "production": {
+          "buildTarget": "volt-age-valiants:build:production"
+        },
+        "development": {
+          "buildTarget": "volt-age-valiants:build:development"
+        }
+      },
+      "defaultConfiguration": "development"
+    },
+    "extract-i18n": {
+      "executor": "@angular-devkit/build-angular:extract-i18n",
+      "options": {
+        "buildTarget": "volt-age-valiants:build"
+      }
+    },
+    "lint": {
+      "executor": "@nx/eslint:lint",
+      "outputs": ["{options.outputFile}"]
+    },
+    "test": {
+      "executor": "@nx/jest:jest",
+      "outputs": ["{workspaceRoot}/coverage/{projectRoot}"],
+      "options": {
+        "jestConfig": "apps/volt-age-valiants/jest.config.ts"
+      }
+    }
+  }
+}
