@@ -1,1 +1,26 @@
-<p>game-board works!</p>
+<div class="board" cdkDropListGroup>
+  @for (cell of board; track cell; let index = $index) {
+  <div
+    class="cell"
+    cdkDropList
+    [cdkDropListData]="cell"
+    (cdkDropListDropped)="drop($event)"
+  >
+    @for (piece of cell; track piece;) {
+    <volt-tetrimino [pieceClass]="piece"></volt-tetrimino>
+    }
+  </div>
+  }
+
+  <div
+    class="action-tray"
+    cdkDropList
+    [cdkDropListData]="tray"
+    (cdkDropListDropped)="drop($event)"
+    cdkDropListOrientation="horizontal"
+  >
+    @for (piece of tray; track $index) {
+    <volt-tetrimino [pieceClass]="piece"></volt-tetrimino>
+    }
+  </div>
+</div>
