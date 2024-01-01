@@ -1,12 +1,22 @@
 <div
-  [style.background-color]="pieceClass"
+  class="tetrimino show-bounding-box"
   cdkDrag
-  [cdkDragData]="pieceClass"
-  [style.transform]="getRotationStyle()"
-  (contextmenu)="onContextMenu($event)"
-  (mouseup)="onMouseUp($event)"
+  [cdkDragData]="state"
   (cdkDragStarted)="onDragStart($event)"
   (cdkDragEnded)="onDragEnd($event)"
 >
+  @for (x of [0, 1, 2, 3]; track x;) { @for (y of [0, 1, 2, 3]; track y;) { @if
+  (onDraw(x, y)) {
+  <div
+    [style.background-color]="COLORS[state.shape]"
+    class="filled"
+    cdkDragHandle
+    (contextmenu)="onContextMenu($event)"
+    (mouseup)="onMouseUp($event)"
   >
+    {{ x === 1 && y === 1 ? '+' : '' }}
+  </div>
+  } @else {
+  <div></div>
+  } } }
 </div>

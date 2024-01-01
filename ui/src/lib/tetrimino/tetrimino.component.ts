@@ -1,33 +1,48 @@
-import { CdkDrag, CdkDragEnd, CdkDragStart } from '@angular/cdk/drag-drop';
+import {
+  CdkDrag,
+  CdkDragEnd,
+  CdkDragHandle,
+  CdkDragStart,
+} from '@angular/cdk/drag-drop';
 import { Component, Input } from '@angular/core';
+import { COLORS, SHAPES } from './tetrimino.models';
 
 @Component({
   selector: 'volt-tetrimino',
   standalone: true,
-  imports: [CdkDrag],
+  imports: [CdkDrag, CdkDragHandle],
   templateUrl: './tetrimino.component.html',
   styleUrl: './tetrimino.component.css',
 })
 export class TetriminoComponent {
+  COLORS = COLORS;
+  SHAPES = SHAPES;
   isDragging = false;
-  rotation = 0;
 
-  @Input() pieceClass = 'blue';
-  @Input() size: number = 1;
+  @Input() state: {
+    shape: number;
+    rotation: number;
+  } = {
+    shape: 0,
+    rotation: 0,
+  };
 
-  getRotationStyle(): string {
-    return `rotate(${this.rotation}deg)`;
+  onDraw(x: number, y: number) {
+    return (
+      SHAPES[this.state.shape][this.state.rotation] & (0x8000 >> (x * 4 + y))
+    );
   }
 
   onContextMenu(event: MouseEvent) {
     event.preventDefault();
-    this.rotation -= 90;
+    this.state.rotation = this.state.rotation > 0 ? this.state.rotation - 1 : 3;
   }
 
   onMouseUp(event: MouseEvent): void {
     // Handle mouse up event
     if (event.button === 0 && !this.isDragging) {
-      this.rotation += 90;
+      this.state.rotation = (this.state.rotation + 1) % 4;
+      console.log(SHAPES[this.state.shape][this.state.rotation].toString(16));
     }
   }
 
