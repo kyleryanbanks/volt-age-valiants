@@ -18,11 +18,13 @@ import { TetriminoComponent } from '../tetrimino/tetrimino.component';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class GameBoardComponent {
-  tray = ['blue', 'blue', 'blue', 'blue', 'red', 'red', 'red', 'red'];
-  board = Array.from({ length: 100 }, () => []);
+  tray = Array.from({ length: 7 }, (_, shape: number) => ({
+    shape,
+    rotation: 0,
+  }));
+  board = Array.from({ length: 144 }, () => []);
 
   drop(event: CdkDragDrop<any>) {
-    console.log(event);
     if (event.previousContainer === event.container) {
       moveItemInArray(
         event.container.data,
@@ -39,11 +41,8 @@ export class GameBoardComponent {
     }
   }
 
-  onAdd(color: string) {
-    this.tray.push(color);
-  }
-
   onShuffle() {
+    console.log(this.tray);
     this.shuffleArrayIndexes(this.board);
   }
 

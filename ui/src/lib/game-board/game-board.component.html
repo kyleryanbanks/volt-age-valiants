@@ -1,13 +1,13 @@
 <div class="board" cdkDropListGroup>
-  @for (cell of board; track cell; let index = $index) {
+  @for (cell of board; track cell;) {
   <div
     class="cell"
     cdkDropList
     [cdkDropListData]="cell"
     (cdkDropListDropped)="drop($event)"
   >
-    @for (piece of cell; track piece;) {
-    <volt-tetrimino [pieceClass]="piece"></volt-tetrimino>
+    @for (state of cell; track $index;) {
+    <volt-tetrimino [state]="state"></volt-tetrimino>
     }
   </div>
   }
@@ -19,13 +19,10 @@
     (cdkDropListDropped)="drop($event)"
     cdkDropListOrientation="horizontal"
   >
-    @for (piece of tray; track $index) {
-    <volt-tetrimino [pieceClass]="piece"></volt-tetrimino>
+    @for (state of tray; track $index) {
+    <volt-tetrimino [state]="state"></volt-tetrimino>
     }
   </div>
 </div>
 
 <button (click)="onShuffle()">Shuffle</button>
-
-<button (click)="onAdd('blue')">Add Blue Piece</button>
-<button (click)="onAdd('red')">Add Red Piece</button>
