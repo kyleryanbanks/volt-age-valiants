@@ -2,4 +2,7 @@
   [style.background-color]="pieceClass"
   cdkDrag
   [cdkDragData]="pieceClass"
+  [style.transform]="getRotationStyle()"
+  (click)="onClick()"
+  (contextmenu)="onContextMenu($event)"
 ></div>
