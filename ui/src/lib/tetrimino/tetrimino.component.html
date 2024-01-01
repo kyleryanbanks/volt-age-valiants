@@ -3,6 +3,10 @@
   cdkDrag
   [cdkDragData]="pieceClass"
   [style.transform]="getRotationStyle()"
-  (click)="onClick()"
   (contextmenu)="onContextMenu($event)"
-></div>
+  (mouseup)="onMouseUp($event)"
+  (cdkDragStarted)="onDragStart($event)"
+  (cdkDragEnded)="onDragEnd($event)"
+>
+  >
+</div>
